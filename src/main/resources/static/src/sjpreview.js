@@ -1,14 +1,95 @@
-function SjpreviewMain() {
-    let params = (new URL(document.location)).searchParams;
-    let id = params.get("id");
+function ContentLetter() {
+    const { state, dispatch } = React.useContext(ContextOne)
     return (
         <React.Fragment>
-            <h1>Preview Surat Jalan</h1>
-            <img src="https://img.freepik.com/free-vector/pack-red-mailboxes-isometric-style_23-2147609238.jpg?w=996&t=st=1665029887~exp=1665030487~hmac=e15a8a66d8c4051fccd46bf7879350ec63fd96e0f3563426e0721215c6d4df9a" className="imgsj" alt="Gambar memerlukan akses secara online" />
+            <p>Nomor: {state.suratjalanDetail.nomor_surat}</p>
+            <p>quantity: {state.suratjalanDetail.quantity}</p>
+            <p>price: {state.suratjalanDetail.price}</p>
+        </React.Fragment>
+    )
+}
+function MenuPrint() {
+    let params = (new URL(document.location)).searchParams;
+    let id = params.get("id");
+    
+    const popup = (data) =>
+        {
+            var someElement = document.getElementById("body_surat");
+            var someElementToString;
+
+            if (someElement.outerHTML)
+                someElementToString = someElement.outerHTML;
+            else if (XMLSerializer)
+                someElementToString = new XMLSerializer().serializeToString(someElement); 
+
+            var iframe = document.createElement('iframe');
+            iframe.name = 'frame1';
+            // var html = '<body>Foo</body>';
+            document.body.appendChild(iframe);
+            var frameDoc = iframe.contentWindow
+            // frameDoc.document.open();
+            // frameDoc.document.write(html);
+            // iframe.contentWindow.document.close();
+
+
+            // var ifrm = document.getElementById('myIframe');
+            // const ifrm = document.createElement("iframe");
+            // var ifrm = document.createElement("iframe");
+            // var frameDoc = ifrm.contentWindow
+            // var frameDoc = ifrm
+            // var frameDoc = ifrm.contentWindow || ifrm.contentDocument.document || ifrm.contentDocument;
+
+            // var frame1 = $('<iframe />');
+            // frame1[0].name = "frame1";
+            // $("body").append(frame1);
+            // document.body.appendChild(ifrm);
+            // var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+            frameDoc.document.open();
+            //Create a new HTML document.
+            frameDoc.document.write('<html>');
+            frameDoc.document.write('<head>');
+            frameDoc.document.write('<title></title>');
+            // frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/idcard.css">');
+            frameDoc.document.write('</head>');
+            frameDoc.document.write('<body>');
+            frameDoc.document.write(someElementToString);
+            frameDoc.document.write('</body>');
+            frameDoc.document.write('</html>');
+            frameDoc.document.close();
+
+            // document.open();
+            // document.write("<h1>Out with the old, in with the new!</h1>");
+            // document.close();
+
+            setTimeout(function () {
+                // window.frames["iframe"].focus();
+                // window.frames["iframe"].print();
+                window.frames["frame1"].focus();
+                window.frames["frame1"].print();
+                iframe.remove();
+            }, 500);
+            return true;
+        }
+    const doPrint = (e) => {
+            e.preventDefault();
+            // window.print();
+            popup(null)
+        }
+    return (
+        <React.Fragment>
             <a href={"suratjalan.html?id=" + id}>Back to Edit</a>
-            <a href="">Print</a>
+            <a href="#" onClick={doPrint}>Prints</a>
         </React.Fragment>
     )
 }
 
-ReactDOM.render(<ContextOneProvider><SjpreviewMain/></ContextOneProvider>, document.querySelector('#sjp-page'));
+function SjpreviewMain() {
+    return (
+        <React.Fragment>
+              {ReactDOM.createPortal(<MenuPrint />, document.querySelector('#sjp-page'))}
+              {ReactDOM.createPortal(<ContentLetter />, document.querySelector('#subpage'))}
+        </React.Fragment>
+      )
+}
+
+ReactDOM.render(<ContextOneProvider><SjpreviewMain/></ContextOneProvider>, document.querySelector('#root'));

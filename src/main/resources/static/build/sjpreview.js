@@ -1,15 +1,97 @@
-function SjpreviewMain() {
-    var params = new URL(document.location).searchParams;
-    var id = params.get("id");
+function ContentLetter() {
+    var _React$useContext = React.useContext(ContextOne),
+        state = _React$useContext.state,
+        dispatch = _React$useContext.dispatch;
+
     return React.createElement(
         React.Fragment,
         null,
         React.createElement(
-            "h1",
+            "p",
             null,
-            "Preview Surat Jalan"
+            "Nomor: ",
+            state.suratjalanDetail.nomor_surat
         ),
-        React.createElement("img", { src: "https://img.freepik.com/free-vector/pack-red-mailboxes-isometric-style_23-2147609238.jpg?w=996&t=st=1665029887~exp=1665030487~hmac=e15a8a66d8c4051fccd46bf7879350ec63fd96e0f3563426e0721215c6d4df9a", className: "imgsj", alt: "Gambar memerlukan akses secara online" }),
+        React.createElement(
+            "p",
+            null,
+            "quantity: ",
+            state.suratjalanDetail.quantity
+        ),
+        React.createElement(
+            "p",
+            null,
+            "price: ",
+            state.suratjalanDetail.price
+        )
+    );
+}
+function MenuPrint() {
+    var params = new URL(document.location).searchParams;
+    var id = params.get("id");
+
+    var popup = function popup(data) {
+        var someElement = document.getElementById("body_surat");
+        var someElementToString;
+
+        if (someElement.outerHTML) someElementToString = someElement.outerHTML;else if (XMLSerializer) someElementToString = new XMLSerializer().serializeToString(someElement);
+
+        var iframe = document.createElement('iframe');
+        iframe.name = 'frame1';
+        // var html = '<body>Foo</body>';
+        document.body.appendChild(iframe);
+        var frameDoc = iframe.contentWindow;
+        // frameDoc.document.open();
+        // frameDoc.document.write(html);
+        // iframe.contentWindow.document.close();
+
+
+        // var ifrm = document.getElementById('myIframe');
+        // const ifrm = document.createElement("iframe");
+        // var ifrm = document.createElement("iframe");
+        // var frameDoc = ifrm.contentWindow
+        // var frameDoc = ifrm
+        // var frameDoc = ifrm.contentWindow || ifrm.contentDocument.document || ifrm.contentDocument;
+
+        // var frame1 = $('<iframe />');
+        // frame1[0].name = "frame1";
+        // $("body").append(frame1);
+        // document.body.appendChild(ifrm);
+        // var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html>');
+        frameDoc.document.write('<head>');
+        frameDoc.document.write('<title></title>');
+        // frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/idcard.css">');
+        frameDoc.document.write('</head>');
+        frameDoc.document.write('<body>');
+        frameDoc.document.write(someElementToString);
+        frameDoc.document.write('</body>');
+        frameDoc.document.write('</html>');
+        frameDoc.document.close();
+
+        // document.open();
+        // document.write("<h1>Out with the old, in with the new!</h1>");
+        // document.close();
+
+        setTimeout(function () {
+            // window.frames["iframe"].focus();
+            // window.frames["iframe"].print();
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            iframe.remove();
+        }, 500);
+        return true;
+    };
+    var doPrint = function doPrint(e) {
+        e.preventDefault();
+        // window.print();
+        popup(null);
+    };
+    return React.createElement(
+        React.Fragment,
+        null,
         React.createElement(
             "a",
             { href: "suratjalan.html?id=" + id },
@@ -17,9 +99,18 @@ function SjpreviewMain() {
         ),
         React.createElement(
             "a",
-            { href: "" },
-            "Print"
+            { href: "#", onClick: doPrint },
+            "Prints"
         )
+    );
+}
+
+function SjpreviewMain() {
+    return React.createElement(
+        React.Fragment,
+        null,
+        ReactDOM.createPortal(React.createElement(MenuPrint, null), document.querySelector('#sjp-page')),
+        ReactDOM.createPortal(React.createElement(ContentLetter, null), document.querySelector('#subpage'))
     );
 }
 
@@ -27,4 +118,4 @@ ReactDOM.render(React.createElement(
     ContextOneProvider,
     null,
     React.createElement(SjpreviewMain, null)
-), document.querySelector('#sjp-page'));
+), document.querySelector('#root'));
