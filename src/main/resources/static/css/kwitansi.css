@@ -1,0 +1,187 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+/*Halaman Kwitansi*/
+
+/*---Halaman Kwitansi---*/
+.kwitansi {
+    text-align: center;
+    width: 360px;
+    background: #FFFFFF;
+    margin: 100px auto 0;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.kwitansi a {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background: #4caf50;
+    width: auto;
+    border: 0;
+    border-radius: 10px;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding-left: 40%;
+    padding-right: 40%;
+}
+
+.kwitansi a:hover {
+    background: #43a047;
+}
+
+.kwitansi .title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 27px;
+    padding-bottom: 30px;
+}
+
+.kwitansi p {
+    margin-bottom: 10px;
+}
+
+.checkbox_wrap {
+    display: flex;
+    background: #f2f2f2;
+    width: auto;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border: 1px solid #dae2e6;
+    border-radius: 3px;
+    justify-content: space-between;
+}
+
+.checkbox_wrap:last-child{
+    margin-bottom: 0;
+}
+
+.checkbox_wrap .checkbox_right {
+    position: relative;
+    width: 102px;
+    height: 38px;
+}
+
+.checkbox_right .checkbox {
+    width: 100%;
+    height: 100%;
+    background: #c8cacc;
+    appearance: none;
+    position: relative;
+    border-radius: 3px;
+}
+
+.checkbox_wrap .checkbox:before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 50px;
+    height: 34px;
+    background: #fff;
+    border-radius: 3px;
+    transition: left 0.2s ease;
+    z-index: 2;
+}
+
+.checkbox_wrap .checkbox:checked:before {
+    left: 50px;
+}
+
+.checkbox_wrap .checkbox:checked {
+    background: #73ad21;
+}
+
+.checkbox_wrap .checkbox_right .fas {
+    position: absolute;
+    top: 10px;
+    font-size: 18px;
+    z-index: 1;
+    color: #fff;
+    pointer-events: none;
+}
+
+.checkbox_wrap .checkbox_right .fa-check {
+    left: 16px;
+}
+
+.checkbox_wrap .checkbox_right .fa-times {
+    right: 18px;
+}
+
+@media screen and (max-width: 800px) {
+    .kwitansi {
+        width: 75%;
+        margin-bottom: 20px;
+    }
+}
+
+/*
+---Halaman Preview Kwitansi---
+priviewkw(preview kwitansi)
+pkw(preview kwitansi)
+*/
+
+.previewkw-page {
+    width: 800px;
+    padding-top: 20px;
+    margin: auto;
+}
+
+.pkw-page {
+    position: relative;
+    background: #FFFFFF;
+    max-width: 800px;
+    margin: 0 auto 100px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 20px;
+}
+
+.pkw-page h1 {
+    margin-bottom: 20px;
+}
+
+.pkw-page img {
+    margin-bottom: 40px;
+    width: 700px;
+}
+
+.pkw-page a {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background: #4caf50;
+    width: 100%;
+    border-radius: 10px;
+    margin: 25px;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pkw-page a:hover {
+    background: #43a047;
+}
+
+@media screen and (max-width: 800px) {
+    .previewkw-page {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .pkw-page img {
+        width: 95%;
+    }
+}

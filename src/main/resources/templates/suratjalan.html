@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Selamat Datang</title>
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Fonts to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <!-- Icons to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <script type="text/javascript" src="/bower_components/crypto-js/crypto-js.js"></script>
+    <script src="/build/util.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <nav> 
+        <div class="navbar">
+            <div class="logo"><a href="index.html">Logo</a></div>
+                <div class="menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="suratjalan.html">Surat Jalan</a></li>
+                        <li><a href="invoice.html">Invoice</a></li>
+                        <li><a href="kwitansi.html">Kwitansi</a></li>
+                        <li>
+                            <div class="logout">
+                                <a href="#" onclick="labkodingMain().logout()">logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <!--Form Surat Jalan-->
+    <div class="sj-page">
+        <div id="suratjalan_content"></div>
+        <div class="form">
+          <div class="store">
+          <h1>Store</h1>
+            <div id="combobox_store">
+            <!-- <select name="store" id="store">
+              <option value="store1">Store 1</option>
+              <option value="store2">Store 2</option>
+              <option value="store3">Store 3</option>
+            </select> -->
+            </div>
+          </div>
+          <form class="sj-form1" onsubmit="event.preventDefault(); submitSuratjalan();">
+          <!-- <form class="sj-form1" action="sjpreview.html"> -->
+            <hr>
+            <input id="suratjalan_id" type="hidden" placeholder="Quantity"/>
+            <input id="suratjalan_number" type="text" placeholder="Number">
+            <input id="suratjalan_quantity" type="number" placeholder="Quantity" required/>
+            <input id="suratjalan_price" type="text" placeholder="Price">
+            <div class="next">
+                <button>Next</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <script src="/build/store-combobox.js"></script>
+      <script src="/build/suratjalan.js"></script>
+</body>
+</html>
