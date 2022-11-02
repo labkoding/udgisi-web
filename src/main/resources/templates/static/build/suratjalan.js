@@ -35,7 +35,9 @@ function submitSuratjalan() {
       return r.message;
     }).join(', ');
     if (error) alert(error);else {
-      if (data.data.upsertTbSuratjalan.status === 200) window.location.href = '/sjpreview.html?id=' + data.data.upsertTbSuratjalan.detail_data.id;else alert(data.data.upsertTbSuratjalan.error);
+      if (data.data.upsertTbSuratjalan.status === 200) {
+        window.location.href = '/sjpreview.html?id=' + data.data.upsertTbSuratjalan.detail_data.id;
+      } else alert(data.data.upsertTbSuratjalan.error);
     }
   });
 }

@@ -1,3 +1,39 @@
+function submitInvoice({ idSuratjalan, storeId }) {
+  // window.location.href = "/inpreview.html?id=";
+  // alert(storeId)
+  let invoice_id = '';
+  let invoice_number = '';
+  let suratjalan_ids = JSON.stringify(idSuratjalan);
+  var accessToken = labkodingMain().getAccessToken()
+
+  const graphqlstr = `upsertTbInvoice(request:{id: "${invoice_id}", nomor_invoice:"${invoice_number}",store_id:"${storeId}",suratjalan_ids:${suratjalan_ids}}){  status,error,detail_data{id,nomor_invoice,store_id,version,created_dt,updated_dt,created_by,updated_by} }`;
+  const query = JSON.stringify({query: "mutation{ " + graphqlstr + " }"})
+  console.log('query=>', query)
+
+  fetch(AppConfig.graphqlBaseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'AccessToken': accessToken,
+      'hmac': labkodingMain().generateHmac(query),
+    },
+    body: query
+  })
+    .then(r => r.json())
+    .then(data => {
+      let error = (data.errors || []).map(r => r.message).join(', ')
+      if(error) alert(error)
+      else {
+        if(data.data.upsertTbInvoice.status === 200) {
+          window.location.href = '/inpreview.html?id='+data.data.upsertTbInvoice.detail_data.id;
+        }
+        else alert(data.data.upsertTbInvoice.error)
+      }
+    });
+
+}
+
 function DaftarSuratJalanItem ({ row, handleOnClickCheckbox, suratJalanChecked }) {
   // console.log('DaftarSuratJalanItem invoked ', suratJalanChecked)
   return (
@@ -15,10 +51,9 @@ function DaftarSuratJalanItem ({ row, handleOnClickCheckbox, suratJalanChecked }
     </React.Fragment>
   )
 }
-function SuratjalanCheckbox () {
+function SuratjalanCheckbox ({ storeId }) {
   labkodingMain().restriction()
   const { state, dispatch } = React.useContext(ContextOne)
-  const storeId = ''
   React.useEffect(() => {
     // labkodingMain().fetchAllSuratjalanByStoreId(function (listData) {
     //   dispatch({ type: 'setSuratjalanList', payload: listData })
@@ -34,7 +69,7 @@ function SuratjalanCheckbox () {
     <React.Fragment>
       {state.suratJalanList.map((r, i) => (<DaftarSuratJalanItem key={i} row={r} handleOnClickCheckbox={handleOnClickCheckbox} suratJalanChecked={state.suratJalanChecked} />))}
       <div className="next">
-          <button>Next</button>
+        <button onClick={() => submitInvoice({ idSuratjalan: state.suratJalanChecked, storeId: storeId })}>Next</button>
       </div>
     </React.Fragment>
   )

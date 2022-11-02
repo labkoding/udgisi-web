@@ -23,7 +23,7 @@ function processingLoginResponse(data){
             setInterval(function () {
                 var isLoggedIn = labkodingMain().isLoggedIn()
                 console.log('interval isLOggedIn=', isLoggedIn)
-                if (isLoggedIn) window.location.href = "/index.html";
+               if (isLoggedIn) window.location.href = "/index.html";
             }, 1000);
             
         })

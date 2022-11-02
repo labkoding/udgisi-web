@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="fragments/header-login :: head">
+<head th:replace="fragments/header-sjprint :: head">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <title>Welcome</title>
+    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+    <title>Preview</title>
     <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
@@ -18,28 +18,21 @@
     <script src="/static/build/util.js"></script>
 </head>
 <body>
-  <div class="login-page">
-    <div id="login_content"></div>
-    <div class="form">
-      <form class="login-form" onsubmit="event.preventDefault(); submitLogin();" method="get">
-        <h1>Selamat Datang</h1>
-        <hr>
-        <input id="username" type="text" placeholder="username" required/>
-        <input id="password" type="password" placeholder="password" required/>
-        <button>login</button>
-        <p class="message">Not registered? <a href="registrasi.html">Create an account</a></p>
-      </form>
+    <!-- <iframe id="myIframe"></iframe> -->
+    <div id="root"></div>
+    <div id="body_surat">
+        <div class="book">
+            <div class="page">
+                <div class="subpage" id="subpage">
+                </div>
+            </div>
+
+    <!--        <div class="page">-->
+    <!--            <div class="subpage">Page 2/2</div>-->
+    <!--        </div>-->
+
+        </div>
     </div>
-  </div>
-  <script src="/static/build/login.js" th:src="@{/build/login.js}"></script>
+      <script src="/static/build/sjprint.js" th:src="@{/build/sjprint.js}"></script>
 </body>
 </html>
-
-  
-
-
-
-
-
-
-

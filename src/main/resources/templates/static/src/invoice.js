@@ -1,5 +1,9 @@
 function InvoiceMain() {
   const { state, dispatch } = React.useContext(ContextOne)
+
+  // const currentStoreId = state.storeSelected
+  // const currentSelectedSuratjalan
+
   const handleOnChangeComboboxStore = (value) => {
     dispatch({ type: 'setStoreSelected', payload: value })
     labkodingMain().fetchAllSuratjalanByStoreId(function (listData) {
@@ -10,7 +14,7 @@ function InvoiceMain() {
     return (
       <React.Fragment>
             {ReactDOM.createPortal(<StoreCombobox handleOnChange={handleOnChangeComboboxStore} />, document.querySelector('#combobox_store'))}
-            {ReactDOM.createPortal(<SuratjalanCheckbox />, document.querySelector('#daftar_suratjalan'))}
+            {ReactDOM.createPortal(<SuratjalanCheckbox storeId={state.storeSelected} />, document.querySelector('#daftar_suratjalan'))}
       </React.Fragment>
     )
 }

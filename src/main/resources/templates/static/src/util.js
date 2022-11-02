@@ -1,5 +1,5 @@
-var backendBaseUrl = ''
-//var backendBaseUrl = 'http://localhost:8288'
+if(typeof __ENV__ == 'undefined') __ENV__ = 'development'
+var backendBaseUrl = __ENV__ == 'production' ? '':'http://localhost:8288'
 var AppConfig = {
     baseUrl: backendBaseUrl,
     graphqlPath: '/ryvjrfzawzj7u58jyjep942vq3e59jj468vrg49w53qtxcnjnmrv257qzxba',
@@ -31,6 +31,7 @@ const initialState = {
   suratJalanChecked: [],
   suratJalanList: [],
   suratjalanDetail: {},
+  setInvoiceDetail: {},
   storeSelected: '',
   storeList: []
 }
@@ -42,6 +43,8 @@ const reducer = (state, action) => {
       return { ...state, suratJalanList: action.payload, version: state.version + 1 }
     case 'setSuratjalanDetail':
       return { ...state, suratjalanDetail: action.payload, version: state.version + 1 }
+    case 'setInvoiceDetail':
+      return { ...state, invoiceDetail: action.payload, version: state.version + 1 }
     case 'setStoreList':
       return { ...state, storeList: action.payload, version: state.version + 1 }
     case 'setStoreSelected':
@@ -202,6 +205,27 @@ function fetchOneSuratjalanById(id, cb) {
       // dispatch({type: 'setSuratjalanList', payload: listOptions})
     })
 }
+function fetchOneInvoiceById(id, cb) {
+  var accessToken = labkodingMain().getAccessToken()
+  const graphqlstr = `getAllTbSuratjalan(request:{page_index: 0, page_size: 1000, filter:{id:"${id}"}}){status,error,list_data{id,nomor_surat,store_id,quantity,price,created_dt,updated_dt,created_by,updated_by,version},count,page_count}`
+  const query = JSON.stringify({ query: '{ ' + graphqlstr + ' }' })
+  fetch(AppConfig.graphqlBaseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      AccessToken: accessToken,
+      hmac: labkodingMain().generateHmac(query)
+    },
+    body: query
+  })
+    .then(r => r.json())
+    .then(data => {
+      const listOptions = data.data.getAllTbSuratjalan.list_data
+      cb(listOptions[0])
+      // dispatch({type: 'setSuratjalanList', payload: listOptions})
+    })
+}
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
   /* Loop through a collection of all HTML elements: */
@@ -234,6 +258,7 @@ function labkodingMain(test){
     return {
         includeHTML: includeHTML,
         fetchOneSuratjalanById: fetchOneSuratjalanById,
+        fetchOneInvoiceById: fetchOneInvoiceById,
         fetchAllSuratjalanByStoreId: fetchAllSuratjalanByStoreId,
         fetchAllStore: fetchAllStore,
         ContextOneProvider: ContextOneProvider,

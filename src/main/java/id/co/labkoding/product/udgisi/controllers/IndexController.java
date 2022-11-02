@@ -47,4 +47,19 @@ public class IndexController {
 //        model.addAttribute("allemplist", employeeServiceImpl.getAllEmployee());
         return "suratjalan";
     }
+    @GetMapping(value= {"/sjprint", "/sjprint.html"})
+    public String sjprint() {
+//        model.addAttribute("allemplist", employeeServiceImpl.getAllEmployee());
+        return "sjprint";
+    }
+    @GetMapping(value= {"/inpreview", "/inpreview.html"})
+    public String inpreview() {
+//        model.addAttribute("allemplist", employeeServiceImpl.getAllEmployee());
+        return "inpreview";
+    }
+    @GetMapping(value= {"/invoiceprint", "/invoiceprint.html"})
+    public String invoiceprint() {
+//        model.addAttribute("allemplist", employeeServiceImpl.getAllEmployee());
+        return "invoiceprint";
+    }
 }

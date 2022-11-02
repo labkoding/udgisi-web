@@ -1,7 +1,7 @@
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var backendBaseUrl = '';
-//var backendBaseUrl = 'http://localhost:8288'
+if (typeof __ENV__ == 'undefined') __ENV__ = 'development';
+var backendBaseUrl = __ENV__ == 'production' ? '' : 'http://localhost:8288';
 var AppConfig = {
   baseUrl: backendBaseUrl,
   graphqlPath: '/ryvjrfzawzj7u58jyjep942vq3e59jj468vrg49w53qtxcnjnmrv257qzxba',
@@ -33,6 +33,7 @@ var initialState = {
   suratJalanChecked: [],
   suratJalanList: [],
   suratjalanDetail: {},
+  setInvoiceDetail: {},
   storeSelected: '',
   storeList: []
 };
@@ -44,6 +45,8 @@ var reducer = function reducer(state, action) {
       return Object.assign({}, state, { suratJalanList: action.payload, version: state.version + 1 });
     case 'setSuratjalanDetail':
       return Object.assign({}, state, { suratjalanDetail: action.payload, version: state.version + 1 });
+    case 'setInvoiceDetail':
+      return Object.assign({}, state, { invoiceDetail: action.payload, version: state.version + 1 });
     case 'setStoreList':
       return Object.assign({}, state, { storeList: action.payload, version: state.version + 1 });
     case 'setStoreSelected':
@@ -209,6 +212,27 @@ function fetchOneSuratjalanById(id, cb) {
     // dispatch({type: 'setSuratjalanList', payload: listOptions})
   });
 }
+function fetchOneInvoiceById(id, cb) {
+  var accessToken = labkodingMain().getAccessToken();
+  var graphqlstr = 'getAllTbSuratjalan(request:{page_index: 0, page_size: 1000, filter:{id:"' + id + '"}}){status,error,list_data{id,nomor_surat,store_id,quantity,price,created_dt,updated_dt,created_by,updated_by,version},count,page_count}';
+  var query = JSON.stringify({ query: '{ ' + graphqlstr + ' }' });
+  fetch(AppConfig.graphqlBaseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      AccessToken: accessToken,
+      hmac: labkodingMain().generateHmac(query)
+    },
+    body: query
+  }).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    var listOptions = data.data.getAllTbSuratjalan.list_data;
+    cb(listOptions[0]);
+    // dispatch({type: 'setSuratjalanList', payload: listOptions})
+  });
+}
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
   /* Loop through a collection of all HTML elements: */
@@ -245,6 +269,7 @@ function labkodingMain(test) {
   return {
     includeHTML: includeHTML,
     fetchOneSuratjalanById: fetchOneSuratjalanById,
+    fetchOneInvoiceById: fetchOneInvoiceById,
     fetchAllSuratjalanByStoreId: fetchAllSuratjalanByStoreId,
     fetchAllStore: fetchAllStore,
     ContextOneProvider: ContextOneProvider,

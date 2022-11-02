@@ -1,32 +1,35 @@
-function ContentLetter() {
-    const { state, dispatch } = React.useContext(ContextOne)
+function ContentLetter({nomor, quantity, price}) {
+    
     return (
         <React.Fragment>
-            <p>Nomor: {state.suratjalanDetail.nomor_surat}</p>
-            <p>quantity: {state.suratjalanDetail.quantity}</p>
-            <p>price: {state.suratjalanDetail.price}</p>
+            <iframe id='sjprint' name='frame1' src='/sjprint.html?id=6181b2c0-5952-40de-83a7-0a9e76282fde' width='100%' height='800' />  
+            {/* <p>Nomor: {nomor}</p>
+            <p>quantity: {quantity}</p>
+            <p>price: {price}</p> */}
         </React.Fragment>
     )
 }
 function MenuPrint() {
+    const { state, dispatch } = React.useContext(ContextOne)
     let params = (new URL(document.location)).searchParams;
     let id = params.get("id");
     
     const popup = (data) =>
         {
-            var someElement = document.getElementById("body_surat");
-            var someElementToString;
+            // var someElement = document.getElementById("body_surat");
+            // var someElementToString;
 
-            if (someElement.outerHTML)
-                someElementToString = someElement.outerHTML;
-            else if (XMLSerializer)
-                someElementToString = new XMLSerializer().serializeToString(someElement); 
+            // if (someElement.outerHTML)
+            //     someElementToString = someElement.outerHTML;
+            // else if (XMLSerializer)
+            //     someElementToString = new XMLSerializer().serializeToString(someElement); 
 
-            var iframe = document.createElement('iframe');
-            iframe.name = 'frame1';
+            // var iframe = document.getElementById('sjprint');
+            // var iframe = document.createElement('iframe');
+            // iframe.name = 'frame1';
             // var html = '<body>Foo</body>';
-            document.body.appendChild(iframe);
-            var frameDoc = iframe.contentWindow
+            // document.body.appendChild(iframe);
+            // var frameDoc = iframe.contentWindow
             // frameDoc.document.open();
             // frameDoc.document.write(html);
             // iframe.contentWindow.document.close();
@@ -44,18 +47,18 @@ function MenuPrint() {
             // $("body").append(frame1);
             // document.body.appendChild(ifrm);
             // var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
-            frameDoc.document.open();
+            // frameDoc.document.open();
             //Create a new HTML document.
-            frameDoc.document.write('<html>');
-            frameDoc.document.write('<head>');
-            frameDoc.document.write('<title></title>');
+            // frameDoc.document.write('<html>');
+            // frameDoc.document.write('<head>');
+            // frameDoc.document.write('<title></title>');
             // frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/idcard.css">');
-            frameDoc.document.write('</head>');
-            frameDoc.document.write('<body>');
-            frameDoc.document.write(someElementToString);
-            frameDoc.document.write('</body>');
-            frameDoc.document.write('</html>');
-            frameDoc.document.close();
+            // frameDoc.document.write('</head>');
+            // frameDoc.document.write('<body>');
+            // frameDoc.document.write(someElementToString);
+            // frameDoc.document.write('</body>');
+            // frameDoc.document.write('</html>');
+            // frameDoc.document.close();
 
             // document.open();
             // document.write("<h1>Out with the old, in with the new!</h1>");
@@ -66,7 +69,7 @@ function MenuPrint() {
                 // window.frames["iframe"].print();
                 window.frames["frame1"].focus();
                 window.frames["frame1"].print();
-                iframe.remove();
+                // iframe.remove();
             }, 500);
             return true;
         }
@@ -84,10 +87,20 @@ function MenuPrint() {
 }
 
 function SjpreviewMain() {
+    const { state, dispatch } = React.useContext(ContextOne)
+    React.useEffect(() => {
+        let params = (new URL(document.location)).searchParams;
+        let id = params.get("id");
+        labkodingMain().fetchOneSuratjalanById(id, function(data = {}){
+            dispatch({ type: 'setSuratjalanDetail', payload: data })
+            dispatch({ type: 'setStoreSelected', payload: data.store_id })
+        })
+    }, [])
+
     return (
         <React.Fragment>
               {ReactDOM.createPortal(<MenuPrint />, document.querySelector('#sjp-page'))}
-              {ReactDOM.createPortal(<ContentLetter />, document.querySelector('#subpage'))}
+              {ReactDOM.createPortal(<ContentLetter nomor={state.suratjalanDetail.nomor_surat} quantity={state.suratjalanDetail.quantity} price={state.suratjalanDetail.price} />, document.querySelector('#body_surat'))}
         </React.Fragment>
       )
 }
