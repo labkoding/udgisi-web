@@ -30,7 +30,9 @@ const initialState = {
   offset: 0,
   version: 0,
   suratJalanChecked: [],
+  invoiceChecked: [],
   suratJalanList: [],
+  invoiceList: [],
   suratjalanDetail: {},
   setInvoiceDetail: {},
   storeSelected: '',
@@ -42,6 +44,8 @@ const reducer = (state, action) => {
       return { ...state, ...action.payload, version: state.version + 1 }
     case 'setSuratjalanList':
       return { ...state, suratJalanList: action.payload, version: state.version + 1 }
+    case 'setInvoiceList':
+      return { ...state, invoiceList: action.payload, version: state.version + 1 }
     case 'setSuratjalanDetail':
       return { ...state, suratjalanDetail: action.payload, version: state.version + 1 }
     case 'setInvoiceDetail':
@@ -52,6 +56,8 @@ const reducer = (state, action) => {
       return { ...state, storeSelected: action.payload, version: state.version + 1 }
     case 'suratJalanChecked':
       return { ...state, suratJalanChecked: action.payload, version: state.version + 1 }
+    case 'invoiceChecked':
+      return { ...state, invoiceChecked: action.payload, version: state.version + 1 }
   }
 }
 function ContextOneProvider (props) {
@@ -185,6 +191,29 @@ function fetchAllSuratjalanByStoreId (cb, storeId) {
       // dispatch({type: 'setSuratjalanList', payload: listOptions})
     })
 }
+function fetchAllInvoice (cb) {
+  var accessToken = labkodingMain().getAccessToken()
+  const graphqlstr = `getAllTbInvoice(request:{page_index: 0, page_size: 1000, filter:{}}){status,error,list_data{id,nomor_invoice,store_id,version,created_dt,updated_dt,created_by,updated_by,version},count,page_count}`
+  const query = JSON.stringify({ query: '{ ' + graphqlstr + ' }' })
+  fetch(AppConfig.graphqlBaseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      AccessToken: accessToken,
+      hmac: labkodingMain().generateHmac(query)
+    },
+    body: query
+  })
+    .then(r => r.json())
+    .then(data => {
+      const listOptions = data.data.getAllTbInvoice.list_data.map(r => {
+        return { id: r.id, label: r.nomor_invoice }
+      })
+      cb(listOptions)
+      // dispatch({type: 'setSuratjalanList', payload: listOptions})
+    })
+}
 function fetchOneSuratjalanById(id, cb) {
   var accessToken = labkodingMain().getAccessToken()
   const graphqlstr = `getAllTbSuratjalan(request:{page_index: 0, page_size: 1000, filter:{id:"${id}"}}){status,error,list_data{id,nomor_surat,store_id,quantity,price,created_dt,updated_dt,created_by,updated_by,version},count,page_count}`
@@ -260,6 +289,7 @@ function labkodingMain(test){
         includeHTML: includeHTML,
         fetchOneSuratjalanById: fetchOneSuratjalanById,
         fetchOneInvoiceById: fetchOneInvoiceById,
+        fetchAllInvoice: fetchAllInvoice,
         fetchAllSuratjalanByStoreId: fetchAllSuratjalanByStoreId,
         fetchAllStore: fetchAllStore,
         ContextOneProvider: ContextOneProvider,

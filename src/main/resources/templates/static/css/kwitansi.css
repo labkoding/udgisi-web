@@ -21,7 +21,7 @@ h1 {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.kwitansi a {
+/* .kwitansi a {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     background: #4caf50;
@@ -33,17 +33,21 @@ h1 {
     font-size: 14px;
     padding-left: 40%;
     padding-right: 40%;
-}
+} */
 
-.kwitansi a:hover {
+/* .kwitansi a:hover {
     background: #43a047;
-}
+} */
 
 .kwitansi .title {
     text-align: center;
     font-weight: 700;
     font-size: 27px;
     padding-bottom: 30px;
+}
+
+.kwitansi hr{
+    margin-bottom: 30px;
 }
 
 .kwitansi p {
@@ -56,8 +60,7 @@ h1 {
     width: auto;
     margin-bottom: 20px;
     padding: 10px 20px;
-    border: 1px solid #dae2e6;
-    border-radius: 3px;
+    border-radius: 10px;
     justify-content: space-between;
 }
 
@@ -77,6 +80,8 @@ h1 {
     background: #c8cacc;
     appearance: none;
     position: relative;
+    outline: none;
+    cursor: pointer;
     border-radius: 3px;
 }
 

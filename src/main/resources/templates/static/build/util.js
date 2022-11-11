@@ -32,7 +32,9 @@ var initialState = {
   offset: 0,
   version: 0,
   suratJalanChecked: [],
+  invoiceChecked: [],
   suratJalanList: [],
+  invoiceList: [],
   suratjalanDetail: {},
   setInvoiceDetail: {},
   storeSelected: '',
@@ -44,6 +46,8 @@ var reducer = function reducer(state, action) {
       return Object.assign({}, state, action.payload, { version: state.version + 1 });
     case 'setSuratjalanList':
       return Object.assign({}, state, { suratJalanList: action.payload, version: state.version + 1 });
+    case 'setInvoiceList':
+      return Object.assign({}, state, { invoiceList: action.payload, version: state.version + 1 });
     case 'setSuratjalanDetail':
       return Object.assign({}, state, { suratjalanDetail: action.payload, version: state.version + 1 });
     case 'setInvoiceDetail':
@@ -54,6 +58,8 @@ var reducer = function reducer(state, action) {
       return Object.assign({}, state, { storeSelected: action.payload, version: state.version + 1 });
     case 'suratJalanChecked':
       return Object.assign({}, state, { suratJalanChecked: action.payload, version: state.version + 1 });
+    case 'invoiceChecked':
+      return Object.assign({}, state, { invoiceChecked: action.payload, version: state.version + 1 });
   }
 };
 function ContextOneProvider(props) {
@@ -192,6 +198,29 @@ function fetchAllSuratjalanByStoreId(cb, storeId) {
     // dispatch({type: 'setSuratjalanList', payload: listOptions})
   });
 }
+function fetchAllInvoice(cb) {
+  var accessToken = labkodingMain().getAccessToken();
+  var graphqlstr = 'getAllTbInvoice(request:{page_index: 0, page_size: 1000, filter:{}}){status,error,list_data{id,nomor_invoice,store_id,version,created_dt,updated_dt,created_by,updated_by,version},count,page_count}';
+  var query = JSON.stringify({ query: '{ ' + graphqlstr + ' }' });
+  fetch(AppConfig.graphqlBaseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      AccessToken: accessToken,
+      hmac: labkodingMain().generateHmac(query)
+    },
+    body: query
+  }).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    var listOptions = data.data.getAllTbInvoice.list_data.map(function (r) {
+      return { id: r.id, label: r.nomor_invoice };
+    });
+    cb(listOptions);
+    // dispatch({type: 'setSuratjalanList', payload: listOptions})
+  });
+}
 function fetchOneSuratjalanById(id, cb) {
   var accessToken = labkodingMain().getAccessToken();
   var graphqlstr = 'getAllTbSuratjalan(request:{page_index: 0, page_size: 1000, filter:{id:"' + id + '"}}){status,error,list_data{id,nomor_surat,store_id,quantity,price,created_dt,updated_dt,created_by,updated_by,version},count,page_count}';
@@ -271,6 +300,7 @@ function labkodingMain(test) {
     includeHTML: includeHTML,
     fetchOneSuratjalanById: fetchOneSuratjalanById,
     fetchOneInvoiceById: fetchOneInvoiceById,
+    fetchAllInvoice: fetchAllInvoice,
     fetchAllSuratjalanByStoreId: fetchAllSuratjalanByStoreId,
     fetchAllStore: fetchAllStore,
     ContextOneProvider: ContextOneProvider,
