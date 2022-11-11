@@ -1,5 +1,6 @@
 if(typeof __ENV__ == 'undefined') __ENV__ = 'development'
 var backendBaseUrl = __ENV__ == 'production' ? '':'http://localhost:8288'
+console.log('__ENV__===', __ENV__)
 var AppConfig = {
     baseUrl: backendBaseUrl,
     graphqlPath: '/ryvjrfzawzj7u58jyjep942vq3e59jj468vrg49w53qtxcnjnmrv257qzxba',

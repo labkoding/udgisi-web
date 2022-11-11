@@ -35,6 +35,7 @@ function processingLoginResponse(data){
 }
 
 function submitLogin(){
+    // alert(__ENV__)
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     let graphqlstr = "login(username:\""+username+"\", password:\""+password+"\"){ access_token status error user{full_name, username, email, user_id} user_privileges role user_merchants{id, merchant_name, merchant_code, is_default, plan} }"
