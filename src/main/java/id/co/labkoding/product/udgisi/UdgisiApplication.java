@@ -18,11 +18,13 @@ public class UdgisiApplication {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-//				.route(r -> r.path("/api/**")
+				.route(r -> r.path("/udgisi/**")
 //						.filters(f -> f.stripPrefix(1))
-//						.uri("lb://udgisi-service"))
+						.uri("lb://Backoffice"))
 				.route("path_route", r -> r.path("/fmpkcxgwv4zuecddsnk65htcrvnt9ae4jc3h58b4")
 						.uri("lb://Backoffice"))
+//				.route("path_route", r -> r.path("/fmpkcxgwv4zuecddsnk65htcrvnt9ae4jc3h58b4")
+//						.uri("lb://Backoffice"))
 				.build();
 	}
 

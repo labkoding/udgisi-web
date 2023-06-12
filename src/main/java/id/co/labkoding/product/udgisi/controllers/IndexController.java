@@ -7,7 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 @Controller
 public class IndexController {
-    @GetMapping(value= {"/home", "/", "/index.html"})
+    @GetMapping(value= {
+            "/home",
+            "/",
+            "/Deliverynote",
+            "/InvoiceScreen",
+            "/ReceiptScreen",
+            "/ProfileScreen",
+            "/index.html"
+    })
     public String home() {
 //        model.addAttribute("allemplist", employeeServiceImpl.getAllEmployee());
         return "index";
