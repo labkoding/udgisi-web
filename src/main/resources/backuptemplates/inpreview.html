@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/header-invoice :: head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/invoice.css">
+    <title>Preview Invoice</title>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="body_surat">
+        <!-- <iframe src="/sjpreview.html?id=6181b2c0-5952-40de-83a7-0a9e76282fde" height="200" width="300" title="Iframe Example"></iframe> -->
+    </div>
+    <!--Preview Invoice-->
+    <div class="previewin-page">
+        <div class="pin-page" id="pin-page">
+            <!-- <h1>Preview Invoice</h1>
+                 <img src="https://img.freepik.com/free-vector/abstract-green-background-fluid-style_23-2148476710.jpg?w=996&t=st=1665114843~exp=1665115443~hmac=afe2753781e5762432f5ed5589d36545fb91c8add706bd770529661dd1e18693" alt="Not connected">
+                <a href="invoice.html">Back to Edit</a>
+                <a href="">Print</a> -->
+        </div>
+    </div>
+    <script src="/static/build/inpreview.js" th:src="@{/build/inpreview.js}"></script>
+</body>
+</html>

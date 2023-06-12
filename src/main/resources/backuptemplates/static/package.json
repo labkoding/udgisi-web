@@ -1,0 +1,26 @@
+{
+  "name": "udgisi",
+  "version": "1.0.0",
+  "description": "```bash npm install ``` ## Start Up ```bash npx babel --watch src --out-dir build --presets react-app/prod ## or using .babelrc {\"presets\": [\"react-app/prod\"]} ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/labkoding/udgisi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/labkoding/udgisi/issues"
+  },
+  "homepage": "https://github.com/labkoding/udgisi#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-styled-components": "^2.0.7",
+    "babel-preset-react-app": "^3.1.2"
+  },
+  "type": "module"
+}
