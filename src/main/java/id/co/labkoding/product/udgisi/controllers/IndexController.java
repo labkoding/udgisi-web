@@ -10,6 +10,7 @@ public class IndexController {
     @GetMapping(value= {
             "/home",
             "/",
+            "/welcome",
             "/Deliverynote",
             "/InvoiceScreen",
             "/ReceiptScreen",
