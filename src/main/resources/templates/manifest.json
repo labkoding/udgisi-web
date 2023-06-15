@@ -9,12 +9,12 @@
   "related_applications": [
     {
       "platform": "itunes",
-      "id": "com.pizzaapp"
+      "id": "com.labkoding.udgisi"
     },
     {
       "platform": "play",
-      "url": "http://play.google.com/store/apps/details?id=com.pizzaapp",
-      "id": "com.pizzaapp"
+      "url": "http://play.google.com/store/apps/details?id=com.labkoding.udgisi",
+      "id": "com.labkoding.udgisi"
     }
   ],
   "prefer_related_applications": true,
