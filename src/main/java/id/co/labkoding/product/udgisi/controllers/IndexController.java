@@ -12,6 +12,7 @@ public class IndexController {
             "/",
             "/welcome",
             "/Deliverynote",
+            "/DelnoteScreen",
             "/InvoiceScreen",
             "/ReceiptScreen",
             "/ProfileScreen",
