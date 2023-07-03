@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.js": "/static/js/main.df097a52.js",
-    "static/js/138.5969c404.js": "/static/js/138.5969c404.js",
+    "main.js": "/static/js/main.ed6c8000.js",
+    "static/js/457.a7ed1d70.js": "/static/js/457.a7ed1d70.js",
+    "static/media/MaterialCommunityIcons.ttf": "/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
     "static/media/SpaceGrotesk_300Light.ttf": "/static/media/SpaceGrotesk_300Light.5c62fc20689f43f24f44.ttf",
     "static/media/SpaceGrotesk_500Medium.ttf": "/static/media/SpaceGrotesk_500Medium.dff8d806ce24db6ac483.ttf",
     "static/media/SpaceGrotesk_400Regular.ttf": "/static/media/SpaceGrotesk_400Regular.67fa42510e26f5d4733d.ttf",
@@ -27,11 +28,11 @@
     "favicon-16.png": "/favicon-16.png",
     "manifest.json": "/manifest.json",
     "serve.json": "/serve.json",
-    "main.df097a52.js.map": "/static/js/main.df097a52.js.map",
-    "138.5969c404.js.map": "/static/js/138.5969c404.js.map"
+    "main.ed6c8000.js.map": "/static/js/main.ed6c8000.js.map",
+    "457.a7ed1d70.js.map": "/static/js/457.a7ed1d70.js.map"
   },
   "entrypoints": [
-    "static/js/138.5969c404.js",
-    "static/js/main.df097a52.js"
+    "static/js/457.a7ed1d70.js",
+    "static/js/main.ed6c8000.js"
   ]
 }
